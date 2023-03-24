@@ -1,0 +1,6 @@
+framework module Pods_Flying_Example {
+  umbrella header "Pods-Flying_Example-umbrella.h"
+
+  export *
+  module * { export * }
+}

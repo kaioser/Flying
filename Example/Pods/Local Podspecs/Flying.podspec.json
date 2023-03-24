@@ -1,0 +1,29 @@
+{
+  "name": "Flying",
+  "version": "0.1.0",
+  "summary": "网络请求.",
+  "description": "TODO: Add long description of the pod here.",
+  "homepage": "https://gitee.com/uiop/flying",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "yangxiongkai": "1337503263@qq.com"
+  },
+  "source": {
+    "git": "https://gitee.com/uiop/flying.git",
+    "tag": "0.1.0"
+  },
+  "platforms": {
+    "ios": "13.0"
+  },
+  "swift_versions": "5.0",
+  "source_files": "Flying/Classes/**/*",
+  "dependencies": {
+    "Moya": [
+
+    ]
+  },
+  "swift_version": "5.0"
+}

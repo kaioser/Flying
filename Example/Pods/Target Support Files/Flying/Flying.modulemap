@@ -1,0 +1,6 @@
+framework module Flying {
+  umbrella header "Flying-umbrella.h"
+
+  export *
+  module * { export * }
+}
