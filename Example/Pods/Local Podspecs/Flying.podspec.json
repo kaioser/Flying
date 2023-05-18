@@ -1,7 +1,7 @@
 {
   "name": "Flying",
   "version": "0.1.0",
-  "summary": "网络请求.",
+  "summary": "网络请求",
   "description": "TODO: Add long description of the pod here.",
   "homepage": "https://gitee.com/uiop/flying",
   "license": {
@@ -9,7 +9,7 @@
     "file": "LICENSE"
   },
   "authors": {
-    "yangxiongkai": "1337503263@qq.com"
+    "yxkkk": "13730228573@163.com"
   },
   "source": {
     "git": "https://gitee.com/uiop/flying.git",
@@ -22,6 +22,9 @@
   "source_files": "Flying/Classes/**/*",
   "dependencies": {
     "Moya": [
+
+    ],
+    "HandyJSON": [
 
     ]
   },

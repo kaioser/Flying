@@ -1,7 +1,9 @@
 PODS:
   - Alamofire (5.6.4)
   - Flying (0.1.0):
+    - HandyJSON
     - Moya
+  - HandyJSON (5.0.2)
   - Moya (15.0.0):
     - Moya/Core (= 15.0.0)
   - Moya/Core (15.0.0):
@@ -9,10 +11,13 @@ PODS:
 
 DEPENDENCIES:
   - Flying (from `../`)
+  - HandyJSON
+  - Moya
 
 SPEC REPOS:
   trunk:
     - Alamofire
+    - HandyJSON
     - Moya
 
 EXTERNAL SOURCES:
@@ -21,9 +26,10 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Alamofire: 4e95d97098eacb88856099c4fc79b526a299e48c
-  Flying: 736efeae5f8cc7a9d1e5c76e1a1674ebfe9066a2
+  Flying: a43a16a05bfa9e6815bd53808d23f506240be9d7
+  HandyJSON: 9e4e236f5d2dbefad5155a77417bbea438201c03
   Moya: 138f0573e53411fb3dc17016add0b748dfbd78ee
 
-PODFILE CHECKSUM: 403298cfefe09d7b5395ff622055fe8210f353f4
+PODFILE CHECKSUM: 3294c4618ecab0f687cfe2acebaf5e3c6efcf928
 
-COCOAPODS: 1.12.0
+COCOAPODS: 1.12.1

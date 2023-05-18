@@ -9,7 +9,7 @@
 Pod::Spec.new do |s|
     s.name             = 'Flying'
     s.version          = '0.1.0'
-    s.summary          = '网络请求.'
+    s.summary          = '网络请求'
     
     # This description is used to generate tags and improve search results.
     #   * Think: What does it do? Why did you write it? What is the focus?
@@ -23,7 +23,7 @@ Pod::Spec.new do |s|
     
     s.homepage         = 'https://gitee.com/uiop/flying'
     s.license          = { :type => 'MIT', :file => 'LICENSE' }
-    s.author           = { 'yangxiongkai' => '1337503263@qq.com' }
+    s.author           = { 'yxkkk' => '13730228573@163.com' }
     s.source           = { :git => 'https://gitee.com/uiop/flying.git', :tag => s.version.to_s }
     
     s.ios.deployment_target = '13.0'
@@ -32,5 +32,6 @@ Pod::Spec.new do |s|
     s.source_files = 'Flying/Classes/**/*'
     
     s.dependency 'Moya'
+    s.dependency 'HandyJSON'
     
 end
