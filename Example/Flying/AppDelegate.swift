@@ -17,52 +17,34 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 
-        // 安装网络环境
-//        FlyConfiguration.shared.install(environment: BaseApi())
+        // 注册网络环境
+        FlyConfiguration.register(environments: [Dev(), Test(), Pro()], plugins: [loadingPlugin, loggerPlugin])
         
         return true
     }
 }
 
-private let kBaseUrlPro = "https://v.api.aa1.cn"
+fileprivate struct Dev: Environment {
+    var baseURL: String = "https://dev.github.com"
+    var isInitial: Bool = true
+}
 
-//struct BaseApi: FlyEnvironment {
-//
-//    var headers: [String : String]? = ["version": "2.4.0"]
-//
-//    var current: String = kBaseUrlPro
-//
-//    var baseUrlPro: String = kBaseUrlPro
-//
-//    var baseUrlPre: String = kBaseUrlPro
-//
-//    var baseUrlTest: String = kBaseUrlPro
-//
-//    var testUrlDev: String = kBaseUrlPro
-//
-//    var plugins: [PluginType] = [FailAlertShow(), FlyLog()]
-//}
+fileprivate struct Test: Environment {
+    var baseURL: String = "https://test.github.com"
+    var isInitial: Bool = false
+}
 
-//class FailAlertShow: PluginType {
-//
-//    func didReceive(_ result: Result<Response, MoyaError>, target: TargetType) {
-//        print("展示失败的弹框")
-//
-//        if target is MessageAPI {
-//            print("收到结果")
-//        }
-//    }
-//}
-//
-//class FlyLog: PluginType {
-//    func willSend(_ request: RequestType, target: TargetType) {
-//        print("开始请求")
-//    }
-//
-//    func didReceive(_ result: Result<Response, MoyaError>, target: TargetType) {
-//        print("请求结束")
-//    }
-//}
+fileprivate struct Pro: Environment {
+    var baseURL: String = "https://www.github.com"
+    var isInitial: Bool = false
+}
+
+let loadingPlugin = NetworkActivityPlugin { change, target in
+    print(change)
+}
+
+let loggerPlugin = NetworkLoggerPlugin.verbose
+
 //
 //class Sign: PluginType {
 //

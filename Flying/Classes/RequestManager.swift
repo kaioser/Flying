@@ -9,7 +9,7 @@ import Foundation
 import HandyJSON
 import Moya
 
-let provider = MoyaProvider<MultiTarget>(plugins: NetworkConfiguration.shared.plugins)
+let provider = MoyaProvider<MultiTarget>(plugins: FlyConfiguration.plugins)
 
 public typealias SuccessClosure = ((Response) -> Void)
 public typealias SuccessDeserializeClosure<T: HandyJSON> = ((T, Response) -> Void)
@@ -103,21 +103,25 @@ public class Flying {
     //    }
 }
 
-// 定制api
+// 定制api请求模型
 public struct APIConfiguration: TargetType {
     
-    private var rPath: String
-    private var rMethod: Moya.Method
-    private var rTask: Moya.Task
-    public init(path: String, method: Moya.Method, task: Moya.Task) {
+    public init(path: String, method: Moya.Method, task: Moya.Task, headers: [String : String]?) {
         self.rPath = path
         self.rMethod = method
         self.rTask = task
+        self.rHeaders = headers
     }
     
     public var path: String { rPath }
     public var method: Moya.Method { rMethod }
     public var task: Moya.Task { rTask }
+    public var headers: [String : String]?
+    
+    private var rPath: String
+    private var rMethod: Moya.Method
+    private var rTask: Moya.Task
+    private var rHeaders: [String : String]?
 }
 
 public enum NetworkError: Error {

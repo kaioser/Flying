@@ -8,48 +8,32 @@
 import Foundation
 import Moya
 
-public class NetworkConfiguration {
-    
-    public static let shared = NetworkConfiguration()
-    
-    private init() {}
+let kFlyConfiguration = "FlyConfiguration"
 
-    private var environment: Environment?
+public class FlyConfiguration {
     
-    var baseUrlPro: String {
-        return environment?.baseUrlPro ?? ""
+    static var plugins: [PluginType] = []
+    
+    public static func register(environments: [Environment], plugins: [PluginType]) {
+        
+        UserDefaultsManager.save(environments: environments)
+        self.plugins = plugins
     }
     
-    var baseUrlTest: String {
-        return environment?.baseUrlTest ?? ""
-    }
-    
-    var current: String {
-        return environment?.current ?? ""
-    }
-    
-    var headers: [String: String]? {
-        return environment?.headers
-    }
+    static var current: String? = UserDefaultsManager.fetch().filter { $0.isInitial }.first?.baseURL
+}
 
-    var plugins: [PluginType] {
-        return environment?.plugins ?? []
-    }
-    
-    public func install(environment: Environment) {
-        self.environment = environment
-    }
+public protocol Environment {
+    var baseURL: String { get }
+    var isInitial: Bool { get }
 }
 
 public extension TargetType {
-
+    
     var baseURL: URL {
-        return URL(string: NetworkConfiguration.shared.current)!
+        if let urlString = FlyConfiguration.current {
+            return URL(string: urlString)!
+        }
+        return URL(string: "https://github.com")!
     }
-    
-    var headers: [String : String]? {
-        return NetworkConfiguration.shared.headers
-    }
-    
-    var method: Moya.Method { .post }
 }
