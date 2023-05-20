@@ -1,6 +1,6 @@
 PODS:
   - Alamofire (5.6.4)
-  - Flying (0.1.0):
+  - Flying (0.1.1):
     - HandyJSON
     - Moya
   - HandyJSON (5.0.2)
@@ -26,7 +26,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Alamofire: 4e95d97098eacb88856099c4fc79b526a299e48c
-  Flying: a43a16a05bfa9e6815bd53808d23f506240be9d7
+  Flying: a268ba1d3cd35f268311dd9a811d43c7ce0530b2
   HandyJSON: 9e4e236f5d2dbefad5155a77417bbea438201c03
   Moya: 138f0573e53411fb3dc17016add0b748dfbd78ee
 

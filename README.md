@@ -1,9 +1,9 @@
 # Flying
 
-[![CI Status](https://img.shields.io/travis/yangxiongkai/Flying.svg?style=flat)](https://travis-ci.org/yangxiongkai/Flying)
-[![Version](https://img.shields.io/cocoapods/v/Flying.svg?style=flat)](https://cocoapods.org/pods/Flying)
-[![License](https://img.shields.io/cocoapods/l/Flying.svg?style=flat)](https://cocoapods.org/pods/Flying)
-[![Platform](https://img.shields.io/cocoapods/p/Flying.svg?style=flat)](https://cocoapods.org/pods/Flying)
+ [![CI Status](https://img.shields.io/travis/yangxiongkai/Flying.svg?style=flat)](https://travis-ci.org/yangxiongkai/Flying)
+ [![Version](https://img.shields.io/cocoapods/v/Flying.svg?style=flat)](https://cocoapods.org/pods/Flying)
+ [![License](https://img.shields.io/cocoapods/l/Flying.svg?style=flat)](https://cocoapods.org/pods/Flying)
+ [![Platform](https://img.shields.io/cocoapods/p/Flying.svg?style=flat)](https://cocoapods.org/pods/Flying)
 
 ## Example
 
@@ -22,7 +22,7 @@ pod 'Flying'
 
 ## Author
 
-yangxiongkai, 1337503263@qq.com
+yangxiongkai, yangxiongkai@126.com
 
 ## License
 
