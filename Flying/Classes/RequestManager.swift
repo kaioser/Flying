@@ -6,13 +6,13 @@
 //
 
 import Foundation
-import HandyJSON
+//import HandyJSON
 import Moya
 
 let provider = MoyaProvider<MultiTarget>(plugins: FlyConfiguration.plugins)
 
 public typealias SuccessClosure = ((Response) -> Void)
-public typealias SuccessDeserializeClosure<T: HandyJSON> = ((T, Response) -> Void)
+//public typealias SuccessDeserializeClosure<T: HandyJSON> = ((T, Response) -> Void)
 public typealias FailureClosure = ((NetworkError) -> Void)
 
 public class Flying {
@@ -38,41 +38,44 @@ public class Flying {
             }
         }
     }
-    
-    /// 网络请求（自动解析数据）
-    /// - Parameters:
-    ///   - target: 接口信息
-    ///   - adapter: 适配器（数据解析的model的类型）
-    ///   - success: 成功回调
-    ///   - failure: 失败回调
-    /// - Returns: 可取消的请求
-    @discardableResult public static func request<T: HandyJSON>(_ target: TargetType,
-                                                                adapter: T.Type,
-                                                                success: @escaping SuccessDeserializeClosure<T>,
-                                                                failure: @escaping FailureClosure) -> Cancellable {
-        
-        return provider.request(MultiTarget(target)) { result in
-            
-            switch result {
-            case .success(let response):
-                
-                guard let jsonString = try? response.mapString() else {
-                    failure(.decodeError)
-                    return
-                }
-                
-                guard let model = JSONDeserializer<T>.deserializeFrom(json: jsonString) else {
-                    failure(.decodeError)
-                    return
-                }
-                
-                success(model, response)
-                
-            case .failure(let error):
-                failure(.unknownError(error))
-            }
-        }
-    }
+    /*
+     
+     /// 网络请求（自动解析数据）
+     /// - Parameters:
+     ///   - target: 接口信息
+     ///   - adapter: 适配器（数据解析的model的类型）
+     ///   - success: 成功回调
+     ///   - failure: 失败回调
+     /// - Returns: 可取消的请求
+     @discardableResult public static func request<T: HandyJSON>(_ target: TargetType,
+                                                                 adapter: T.Type,
+                                                                 success: @escaping SuccessDeserializeClosure<T>,
+                                                                 failure: @escaping FailureClosure) -> Cancellable {
+         
+         return provider.request(MultiTarget(target)) { result in
+             
+             switch result {
+             case .success(let response):
+                 
+                 guard let jsonString = try? response.mapString() else {
+                     failure(.decodeError)
+                     return
+                 }
+                 
+                 guard let model = JSONDeserializer<T>.deserializeFrom(json: jsonString) else {
+                     failure(.decodeError)
+                     return
+                 }
+                 
+                 success(model, response)
+                 
+             case .failure(let error):
+                 failure(.unknownError(error))
+             }
+         }
+     }
+     
+     */
     
     // 传入定制接口的请求，待使用
     //    @discardableResult public static func requestAir<T: HandyJSON>(_ api: APIConfiguration,
@@ -104,25 +107,25 @@ public class Flying {
 }
 
 // 定制api请求模型
-public struct APIConfiguration: TargetType {
-    
-    public init(path: String, method: Moya.Method, task: Moya.Task, headers: [String : String]?) {
-        self.rPath = path
-        self.rMethod = method
-        self.rTask = task
-        self.rHeaders = headers
-    }
-    
-    public var path: String { rPath }
-    public var method: Moya.Method { rMethod }
-    public var task: Moya.Task { rTask }
-    public var headers: [String : String]?
-    
-    private var rPath: String
-    private var rMethod: Moya.Method
-    private var rTask: Moya.Task
-    private var rHeaders: [String : String]?
-}
+//public struct APIConfiguration: TargetType {
+//
+//    public init(path: String, method: Moya.Method, task: Moya.Task, headers: [String : String]?) {
+//        self.rPath = path
+//        self.rMethod = method
+//        self.rTask = task
+//        self.rHeaders = headers
+//    }
+//
+//    public var path: String { rPath }
+//    public var method: Moya.Method { rMethod }
+//    public var task: Moya.Task { rTask }
+//    public var headers: [String : String]?
+//
+//    private var rPath: String
+//    private var rMethod: Moya.Method
+//    private var rTask: Moya.Task
+//    private var rHeaders: [String : String]?
+//}
 
 public enum NetworkError: Error {
     // 解码失败

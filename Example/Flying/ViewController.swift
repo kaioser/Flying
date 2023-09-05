@@ -8,42 +8,30 @@
 
 import UIKit
 import Flying
+import Moya
+import HandyJSON
 
 class DemoViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        view.backgroundColor = .secondarySystemBackground
+        view.backgroundColor = .systemGroupedBackground
         tableView.register(DemoTableViewCell.self, forCellReuseIdentifier: identifier)
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "切换环境", style: .plain, target: self, action: #selector(switchAction))
+        // navigationItem.rightBarButtonItem = UIBarButtonItem(title: "切换环境", style: .plain, target: self, action: #selector(switchAction))
     }
     
-    @objc private func switchAction() {
-        EnvironmentSwitcher.show()
-    }
+    //    @objc private func switchAction() {
+    //        EnvironmentSwitcher.show()
+    //    }
     
-    private let data: [Section] = [
-        Section(name: "Message-API", rows: [Row(title: "消息列表", controller: TempViewController.self),
-                                            Row(title: "消息详情", controller: TempViewController.self)]),
-        Section(name: "Mall-API", rows: [Row(title: "商品列表", controller: TempViewController.self),
-                                         Row(title: "商品详情", controller: TempViewController.self)])
-    ]
+    private let data: [UserAPI] = UserAPI.allCases
 }
 
 extension DemoViewController {
     
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        data[section].name
-    }
-    
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        data.count
-    }
-    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        data[section].rows.count
+        data.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -51,7 +39,9 @@ extension DemoViewController {
         
         if #available(iOS 14.0, *) {
             var c = cell.defaultContentConfiguration()
-            c.text = data[indexPath.section].rows[indexPath.row].title
+            let api = data[indexPath.row]
+            c.text = api.path
+            c.secondaryText = api.method.rawValue
             cell.contentConfiguration = c
         }
         
@@ -59,11 +49,27 @@ extension DemoViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        tableView.deselectRow(at: indexPath, animated: true)
-        
-        let row = data[indexPath.section].rows[indexPath.row]
-        present(row.controller.init(), animated: true)
+        let api = data[indexPath.row]
+        Flying.request(api) { response in
+            
+            var jsonString = ""
+            do {
+                jsonString = try response.mapString()
+            } catch {
+                self.showAlert(title: "请求成功，解码失败", message: error.localizedDescription)
+            }
+            
+            self.showAlert(title: "请求成功，解码成功", message: jsonString)
+            
+        } failure: { error in
+            self.showAlert(title: "请求失败", message: error.localizedDescription)
+        }
+    }
+    
+    func showAlert(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(.init(title: "OK", style: .cancel))
+        present(alert, animated: true)
     }
 }
 
@@ -71,23 +77,48 @@ let identifier = "DemoTableViewCellIden"
 
 class DemoTableViewCell: UITableViewCell {}
 
-private struct Row {
-    let title: String
-    let controller: UIViewController.Type
+enum UserAPI: CaseIterable {
+    case createUser
+    case userProfile
+    case allUser
 }
 
-private struct Section {
-    let name: String
-    var rows: [Row]
-}
-
-class TempViewController: UIViewController {
+extension UserAPI: TargetType {
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        view.backgroundColor = .systemBackground
-        
-        //        Flying.request(MessageAPI.list)
+    var path: String {
+        switch self {
+        case .createUser:
+            return "/users"
+        case .userProfile:
+            return "/user/info"
+        case .allUser:
+            return "/users/all"
+        }
+    }
+    
+    var method: Moya.Method {
+        switch self {
+        case .createUser:
+            return .post
+        case .userProfile:
+            return .get
+        case .allUser:
+            return .get
+        }
+    }
+    
+    var task: Task {
+        switch self {
+        case .createUser:
+            return .requestPlain
+        case .userProfile:
+            return .requestPlain
+        case .allUser:
+            return .requestPlain
+        }
+    }
+    
+    var headers: [String : String]? {
+        nil
     }
 }
